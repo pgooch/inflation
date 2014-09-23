@@ -120,7 +120,7 @@ class inflation{
 		'2011'=>array('224.939'	,'220.223'	,'221.309'	,'223.467'	,'224.906'	,'225.964'	,'225.722'	,'225.922'	,'226.545'	,'226.889'	,'226.421'	,'226.230'	,'225.672'	),
 		'2012'=>array('229.594'	,'226.665'	,'227.663'	,'229.392'	,'230.085'	,'229.815'	,'229.478'	,'229.104'	,'230.379'	,'231.407'	,'231.317'	,'230.221'	,'229.601'	),
 		'2013'=>array('232.957'	,'230.280'	,'232.166'	,'232.773'	,'232.531'	,'232.945'	,'233.504'	,'233.596'	,'233.877'	,'234.149'	,'233.546'	,'233.069'	,'233.049'	),
-		'2014'=>array(null		,'233.916'	,'234.781'	,'236.293'	,'237.072'	,'237.900'	,'238.343'																	 	  	),			
+		'2014'=>array(null		,'233.916'	,'234.781'	,'236.293'	,'237.072'	,'237.900'	,'238.343'	,'238.250'  ,'237.852'																 	  	),			
 	);
 
 	/*
@@ -167,15 +167,15 @@ class inflation{
 			// A regular expression can solve all the worlds problems.
 			preg_match_all('~([0-9]{1,2})?.?([0-9]{4}).?([0-9]{1,2})?~',$year,$date);
 
-			// First check the year, if we can't find it were going to throw an exception and return 0, guaranteeing an obviously faulty result
+			// First check the year, if we can't find it were going to throw a notice and return today, guaranteeing an obviously faulty result
 			if(!isset($date[2][0])){
-				throw new Exception('Unable to find year from "'.$year.'"');
-				return 0.0;
+				trigger_error('Unable to find year from "'.$year.'"');
+				return $this->get_cpi_avg('today');
 			
-			// If we did find the year we need to check if it's a valid one, if not throw an exception and return 0 like above.
+			// If we did find the year we need to check if it's a valid one, if not throw a notice and return today like above.
 			}else if(!isset($this->cpi_data[$date[2][0]])){
-				throw new Exception('The year "'.$date[2][0].'" is not valid.');
-				return 0.0;
+				trigger_error('The year "'.$date[2][0].'" is not valid.');
+				return $this->get_cpi_avg('today');
 			
 			// Finally if all seems good rename the year var so it's easier to remember for later
 			}else{
@@ -197,7 +197,12 @@ class inflation{
 			}
 
 			// Now we can get and return the CPI average value for the specified month/year
-			return (float)$this->cpi_data[$year][$month];
+			if(isset($this->cpi_data[$year][$month])){
+				return (float)$this->cpi_data[$year][$month];
+			}else{
+				trigger_error('Unable to find cpi adjustment for "'.$month.'/'.$year.'"');
+				return $this->get_cpi_avg('today');
+			}
 
 		}
 
