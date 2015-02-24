@@ -190,13 +190,19 @@ class inflation{
 
 			// First check the year, if we can't find it were going to throw an exception and return 0, guaranteeing an obviously faulty result
 			if(!isset($date[2][0])){
-				throw new Exception('Unable to find year from "'.$year.'"');
+				trigger_error('Unable to find year from "'.$year.'"');
 				return 0.0;
 			
 			// If we did find the year we need to check if it's a valid one, if not throw an exception and return 0 like above.
 			}else if(!isset($this->cpi_data[$date[2][0]])){
-				throw new Exception('The year "'.$date[2][0].'" is not valid.');
-				return 0.0;
+				trigger_error('The year "'.$date[2][0].'" is not valid.');
+				// If it's really really old return 0
+				if($date[2][0]<1913){
+					return 0.0;
+				// If it's really really new return the newest we do have
+				}else{
+					return $this->get_cpi_avg('today');
+				}
 			
 			// Finally if all seems good rename the year var so it's easier to remember for later
 			}else{
@@ -216,8 +222,6 @@ class inflation{
 			if(!isset($this->cpi_data[$year][$month])){
 				$month = count($this->cpi_data[$year])-1;
 			}
-
-			#echo '<hr/><b>'.count($this->cpi_data[$year]).'</b><br/>Looking for '.$year.' year '.$month.' month.<hr/>.';
 
 			// Now we can get and return the CPI average value for the specified month/year
 			return (float)$this->cpi_data[$year][$month];
