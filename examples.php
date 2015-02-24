@@ -24,6 +24,7 @@
 </head>
 <body>
 <?php
+date_default_timezone_set('America/Los_Angeles');
 require_once('./inflation.php');
 $inflation = new inflation();
 ?>
@@ -33,11 +34,11 @@ $inflation = new inflation();
 </p>
 
 <p>
-	Despite the intended price point of $12,000 the DeLorean DMC-12 had an initial sticker price of $25,000, that would be like $<?= number_format($inflation->adjust(25000,1981,1985),2) ?> when Doc Brown took his to 1955 and would have been like $<?= number_format($inflation->adjust(25000,1981,1955),2) ?> back then.
+	Despite the intended price point of $12,000 the DeLorean DMC-12 had an initial sticker price of $25,000, that would be like $<?= number_format($inflation->adjust(25000,1981,1985),0) ?> in 1985 when Doc Brown took his back to 1955 (where it would have been like $<?= number_format($inflation->adjust(25000,1981,1955),0) ?>).
 </p>
 
 <p>
-	The cost of a Ferrari Testarossa in 1989 was $181,000, thats like $<?= number_format($inflation->adjust(181000,1989),2) ?> today.
+	The cost of a Ferrari Testarossa in 1989 was $181,000, thats like $<?= number_format($inflation->adjust(181000,1989),0) ?> today.
 </p>
 
 <p>
@@ -116,5 +117,10 @@ $inflation = new inflation();
 	}
 	?>
 </table>
+
+<p>
+Data last updated <?= $inflation->data_updated() ?>.
+</p>
+
 </body>
 </html>
