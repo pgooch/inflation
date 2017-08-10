@@ -18,7 +18,9 @@ class inflation{
 		to making finding the absolute latest data as easy as possible simply leave the remaining months omitted. In order to keep 
 		month-to-month calculations simple set the year average as null until it can be updated, this keeps each months data in order. 
 		This table and repository will probably not be updated for each months data, but if you do please feel free to make a pull 
-		request with the updated information and I'll merge them. 
+		request with the updated information and I'll merge them. The simplest way to get the data is probably with the BLS Data Tool
+		located at https://data.bls.gov/cgi-bin/dsrv?cu , you can set all and output large chunks at a time in a format you can copy in.
+		Do not copy directly from the PDF of the table as it does not come accross in order.
 	*/
 	private $cpi_data = array(
 		1913=>array(9.9		,9.8		,9.8		,9.8		,9.8		,9.7		,9.8		,9.9		,9.9		,10.0		,10.0		,10.1		,10.0		),
@@ -123,10 +125,10 @@ class inflation{
 		2012=>array(229.594	,226.665	,227.663	,229.392	,230.085	,229.815	,229.478	,229.104	,230.379	,231.407	,231.317	,230.221	,229.601	),
 		2013=>array(232.957	,230.280	,232.166	,232.773	,232.531	,232.945	,233.504	,233.596	,233.877	,234.149	,233.546	,233.069	,233.049	),
 		2014=>array(236.736	,233.916	,234.781	,236.293	,237.072	,237.900	,238.343	,238.250	,237.852	,238.031	,237.433	,236.151	,234.812	),			
-		2015=>array(237.017 ,233.707 	,234.722	,236.119	,236.599	,237.805	,238.638	,238.654	,238.316	,237.945	,237.838	,237.336	,236.525	),
-		2016=>array(null 	,236.916 	,237.111	,238.132	,239.261	,240.236																						),
-	);
-
+		2015=>array(237.017 ,233.707	,234.722	,236.119	,236.599	,237.805	,238.638	,238.654	,238.316	,237.945	,237.838	,237.336	,236.525	),
+		2016=>array(240.007	,236.916	,237.111	,238.132	,239.261	,240.229	,241.018	,240.628	,240.849	,241.428	,241.729	,241.353	,241.432	),
+		2017=>array(null 	,242.839	,243.603	,243.801	,244.524	,244.733	,244.955																			),
+ 	);
 	/*
 		This will use the big-ol multi-dimensional array above to determine the inflation or deflation about of a given value between two 
 		dates.
