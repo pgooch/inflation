@@ -19,7 +19,7 @@ class inflation{
 		month-to-month calculations simple set the year average as null until it can be updated, this keeps each months data in order. 
 		This table and repository will probably not be updated for each months data, but if you do please feel free to make a pull 
 		request with the updated information and I'll merge them. The simplest way to get the data is probably with the BLS Data Tool
-		located at https://data.bls.gov/cgi-bin/dsrv?cu , you can set all and output large chunks at a time in a format you can copy in.
+		located at https://data.bls.gov/cgi-bin/dsrv?cu  you can set all and output large chunks at a time in a format you can copy in.
 		Do not copy directly from the PDF of the table as it does not come accross in order.
 	*/
 	private $cpi_data = array(
@@ -127,7 +127,8 @@ class inflation{
 		2014=>array(236.736	,233.916	,234.781	,236.293	,237.072	,237.900	,238.343	,238.250	,237.852	,238.031	,237.433	,236.151	,234.812	),			
 		2015=>array(237.017 ,233.707	,234.722	,236.119	,236.599	,237.805	,238.638	,238.654	,238.316	,237.945	,237.838	,237.336	,236.525	),
 		2016=>array(240.007	,236.916	,237.111	,238.132	,239.261	,240.229	,241.018	,240.628	,240.849	,241.428	,241.729	,241.353	,241.432	),
-		2017=>array(null 	,242.839	,243.603	,243.801	,244.524	,244.733	,244.955																			),
+		2017=>array(245.119	,242.839	,243.603	,243.801	,244.524	,244.733	,244.955	,244.786	,245.519	,246.819	,246.663	,246.669	,246.524 	),
+		2018=>array(null 	,247.867	,248.991	,249.554	,250.546	 																								),
  	);
 	/*
 		This will use the big-ol multi-dimensional array above to determine the inflation or deflation about of a given value between two 
