@@ -11,16 +11,20 @@
 class inflation{
 
 	/*
-		This is the historic CPI information as pulled from the latest report from http://www.bls.gov/cpi/tables.htm in Table 24. The 
-		data is stored by year, each one containing another array with the average followed by the monthly value. With this information 
-		calculating the adjusted amount is easy. The Official Bureau of Labor Statistics websites calculator uses year averages for every 
-		year except the current, where it uses the latest month. The last year will not be complete until the following year, so in order 
-		to making finding the absolute latest data as easy as possible simply leave the remaining months omitted. In order to keep 
-		month-to-month calculations simple set the year average as null until it can be updated, this keeps each months data in order. 
-		This table and repository will probably not be updated for each months data, but if you do please feel free to make a pull 
-		request with the updated information and I'll merge them. The simplest way to get the data is probably with the BLS Data Tool
-		located at https://data.bls.gov/cgi-bin/dsrv?cu  you can set all and output large chunks at a time in a format you can copy in.
-		Do not copy directly from the PDF of the table as it does not come accross in order.
+		This data can be grabbed from the BLS website, by going Data Tools > Series Report, entering CUUR0000SA0 as the series ID, then on
+		the next form selecting All Years, All Periods, and select include annual averages as well. That will result in an HTML table you 
+		can transpose into the array set below.
+
+		The array is structured with keys as the year and the values containing arrays of adjusted values, the first being an annual average 
+		and the rest of them being monthly January through December. This was done so I could simple query the 1 for January, thinking that 
+		would make the code simpler below, however in reality is just makes updating the data more of a pain, but it's already built and in 
+		use so there's no need to change it now.
+
+		You can also run the inflation-update script to get the latest data from the BLS API, however you will need to register for an 
+		API key in order to do so. Details are in that file. Running that script will update this script by modifying this file, if that
+		makes you uncomfortable I suggest not deploying that specific file (or not deploying your API key).
+
+		This data's source location may change - it has changed in the past - but it's bound to be up there somewhere.
 	*/
 	private $cpi_data = array(
 		1913=>array(9.9		,9.8		,9.8		,9.8		,9.8		,9.7		,9.8		,9.9		,9.9		,10.0		,10.0		,10.1		,10.0		),
@@ -128,8 +132,11 @@ class inflation{
 		2015=>array(237.017 ,233.707	,234.722	,236.119	,236.599	,237.805	,238.638	,238.654	,238.316	,237.945	,237.838	,237.336	,236.525	),
 		2016=>array(240.007	,236.916	,237.111	,238.132	,239.261	,240.229	,241.018	,240.628	,240.849	,241.428	,241.729	,241.353	,241.432	),
 		2017=>array(245.119	,242.839	,243.603	,243.801	,244.524	,244.733	,244.955	,244.786	,245.519	,246.819	,246.663	,246.669	,246.524 	),
-		2018=>array(null 	,247.867	,248.991	,249.554	,250.546	 																								),
+		2018=>array(251.107	,247.867	,248.991	,249.554	,250.546	,251.588	,251.989	,252.006	,252.146	,252.439	,252.885	,252.038	,251.233 	),
+		2019=>array(255.657	,251.712	,252.776	,254.202	,255.548	,256.092	,256.143	,256.571	,256.558	,256.759	,257.346	,257.208	,256.974 	),
+		2020=>array(null 	,257.971	,258.678	,258.115	,256.389	 																								),
  	);
+	// CPI DATA END
 	/*
 		This will use the big-ol multi-dimensional array above to determine the inflation or deflation about of a given value between two 
 		dates.

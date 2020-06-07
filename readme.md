@@ -3,7 +3,9 @@
 A simple PHP function to either calculate inflation locally or to scrape the http://data.bls.gov/ inflation calculator for the adjustment.
 
 ### Requirements
-This function requires cURL access if you wish to scrape the bls.gov calculator for your answer.
+This function requires cURL access if you wish to scrape the bls.gov calculator for your answer. 
+
+Using the update script requires a BLS API key and a little extra setup, check inflation.update.php for details.
 
 ### Usage
 After including the class call one of the following functions:
