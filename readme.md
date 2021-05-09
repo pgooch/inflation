@@ -16,7 +16,7 @@ After including the class call one of the following functions:
 
 - `data_updated()` will return the last time the data was updated in a user readable format (ie December 2014).
 
-Example useage can be found in examples.php. 
+Example useage can be found in examples.php. In addition a cli tool is included to get adjusted values from the command line. This is very basic and take 2 or 3 arguments; amount, original date, and an optional current date and outputs the adjusted. 
 
 ### About the data
 The data used in internal calculations is gathered from the latest report from http://www.bls.gov/cpi/tables.htm in Table 24. It is stored in a multi-dimensional array in a `array($year => array($avg, $jan, $feb...),...` format. This class will most likely not be updated on a monthly basis as new information is added, and the data does not seem to be updated on a monthly basis, but adding new months of data is simple. If you do go ahead and add new data submit a pull request and I'll incorporate it into the main repository.
