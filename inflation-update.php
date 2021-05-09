@@ -22,7 +22,7 @@ if(php_sapi_name()!='cli'){
     echo 'This script can only be run from the command line.';
     exit;
 }
-if(!file_exists('blskey')){
+if(!file_exists(realpath(__DIR__.'/blskey'))){
     echo 'Unable to find blskey.';
     exit;
 }
@@ -32,7 +32,7 @@ if(!file_exists('inflation.php')){
 }
 
 // Grab that key we know where gonna need.
-$blskey = file_get_contents('blskey');
+$blskey = file_get_contents(realpath(__DIR__.'/blskey'));
 
 // Load the data, this needs to be done in 20 year chunks as thats the limit of the API (but it's not 20 years inclusive), first year is 1913.
 $yearly_data = array();
@@ -90,8 +90,8 @@ for($year_start=1913; $year_start<=date('Y'); $year_start+=(YEARS_PER_GRAB-1) ){
 		if($int===13){
 			$int = 0;
 		}
-		// Add it to it's appropriate location and sort
-		$yearly_data[$data->year][$int] = floatval($data->value);
+		// Add it to it's appropriate location and sort, the went from 1 place to 3 in 2007
+		$yearly_data[$data->year][$int] = number_format(floatval($data->value), $data->year < 2007 ? 1 : 3 );
 		ksort($yearly_data[$data->year]);
 	}
 }
@@ -104,7 +104,7 @@ ksort($yearly_data);
 $insert_string = "private \$cpi_data = array(
 ";
 foreach($yearly_data as $year => $data) {
-	$insert_string .= "		".$year."=>array(".implode(", ",$data)."),
+	$insert_string .= "		".$year." => array( ".implode(", ",$data)." ),
 ";
 }
 $insert_string .= " 	);
